@@ -9,7 +9,7 @@
         rm(hpc) # remove the original dataset
 
 
-# Combine the Date and Time columns into a new column and convert to Date class        
+# Combine the Date and Time columns into a new column, datetime, and convert to Date class        
         hpc_dt <- mutate(hpcsubset, datetime = paste(Date, Time, sep = " "))
         hpc_dt$datetime <- strptime(hpc_dt$datetime, format = "%d/%m/%Y %H:%M:%S")
 
@@ -19,15 +19,17 @@
         
         par(mfrow = c(2, 2))
         with(hpc_dt, {
-                plot(datetime, Global_active_power, xlab = "", ylab = "Global Active Power")
+                plot(datetime, Global_active_power, type = "l", xlab = "", ylab = "Global Active Power")
                 
-                plot(datetime, Voltage, ylab = "Voltage")
+                plot(datetime, Voltage, type = "l", ylab = "Voltage")
                 
-                plot(datetime, Sub_metering_1, type = "l", ylab = "Energy Sub Metering")
+                plot(datetime, Sub_metering_1, type = "l", xlab = "", ylab = "Energy Sub Metering")
                 lines(datetime, Sub_metering_2, col = "red")
                 lines(datetime, Sub_metering_3, col = "blue")
+                legend("topright", lty = 1, lwd = 2, bty = "n", col = c("black", "red", "blue"), 
+                       legend = c("Sub-metering 1", "Sub-metering 2", "Sub-metering 3"))
                 
-                plot(datetime, Global_reactive_power, xlab = "", ylab = "Global Reactive Power")
+                plot(datetime, Global_reactive_power, type = "l", ylab = "Global Reactive Power")
         })
         
        dev.off()

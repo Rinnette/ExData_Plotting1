@@ -9,15 +9,15 @@
         rm(hpc) # remove the original dataset
 
         
-# Combine the Date and Time columns into a new column and convert to Date class        
-        hpc_datetime <- mutate(hpcsubset, datetime = paste(Date, Time, sep = " "))
-        hpc_datetime$datetime <- strptime(hpc_datetime$datetime, format = "%d/%m/%Y %H:%M:%S")
+# Combine the Date and Time columns into a new column, datetime, and convert to Date class        
+        hpc_dt <- mutate(hpcsubset, datetime = paste(Date, Time, sep = " "))
+        hpc_dt$datetime <- strptime(hpc_dt$datetime, format = "%d/%m/%Y %H:%M:%S")
 
         
 # Plot graph and save to PNG file
         png("ExData_Plotting1/plot2.png", width = 480, height = 480)
 
-        plot(tmp2$datetime, tmp$Global_active_power, type = "l", xlab = "", 
+        plot(hpc_dt$datetime, hpc_dt$Global_active_power, type = "l", xlab = "", 
              ylab = "Global Active Power (kilowatts)")
         
         dev.off()

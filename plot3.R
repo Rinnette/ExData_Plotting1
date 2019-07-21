@@ -9,7 +9,7 @@
         rm(hpc) # remove the original dataset
 
 
-# Combine the Date and Time columns into a new column and convert to Date class        
+# Combine the Date and Time columns into a new column, datetime, and convert to Date class        
         hpc_dt <- mutate(hpcsubset, datetime = paste(Date, Time, sep = " "))
         hpc_dt$datetime <- strptime(hpc_dt$datetime, format = "%d/%m/%Y %H:%M:%S")
 
@@ -23,7 +23,7 @@
         lines(hpc_dt$datetime, hpc_dt$Sub_metering_3, col = "blue")
         
         legend("topright", lty = 1, lwd = 2, col = c("black", "red", "blue"), 
-               legend = c("Sub Metering 1", "Sub Metering 2", "Sub Metering 3"))
+               legend = c("Sub-metering 1", "Sub-metering 2", "Sub-metering 3"))
         
         dev.off()
         
